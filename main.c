@@ -11,6 +11,5 @@ int main(void)
     /* Ejecuta todas las pruebas unitarias. */
     printf("~~~ PRUEBAS ALUMNO ~~~\n");
     prueba_pila_alumno();
-
     return failure_count() > 0;
 }
