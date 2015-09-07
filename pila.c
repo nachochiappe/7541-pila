@@ -71,7 +71,7 @@ void* pila_desapilar(pila_t *pila) {
 		if ((pila->tam - pila->largo == TAMANO) && (pila->largo > 0)) {
 			pila->datos = realloc(pila->datos, (pila->tam - TAMANO) * sizeof(void*));
 			if (pila->datos == NULL) {
-				return false;
+				return NULL;
 			}
 			pila->tam -= TAMANO;
 		}
