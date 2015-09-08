@@ -86,5 +86,4 @@ void prueba_pila_alumno() {
 	pila_apilar(pila, p_g);
 	// Destruyo la pila
 	pila_destruir(pila);
-	print_test("Prueba destruir pila", (pila_esta_vacia(pila) == true));
 }

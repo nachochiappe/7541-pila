@@ -32,8 +32,7 @@ pila_t* pila_crear() {
 
 void pila_destruir(pila_t *pila) {
 	free(pila->datos);
-    free(pila);
-	pila->largo = 0;
+	free(pila);
 }
 
 bool pila_esta_vacia(const pila_t *pila) {
