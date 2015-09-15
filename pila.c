@@ -17,11 +17,10 @@ struct pila {
 
 pila_t* pila_crear() {
 	pila_t* pila = malloc(sizeof(pila_t));
-	if (pila ==  NULL) {
+	if (!pila)
 		return NULL;
-	}
 	pila->datos = malloc(TAMANO * sizeof(void*));
-	if (pila->datos == NULL) {
+	if (!pila->datos) {
         free(pila);
         return NULL;
     }
@@ -36,18 +35,16 @@ void pila_destruir(pila_t *pila) {
 }
 
 bool pila_esta_vacia(const pila_t *pila) {
-	if (pila->largo == 0) {
-		return true;
-	}
-	return false;
+	return (pila->largo == 0);
 }
 
 bool pila_apilar(pila_t *pila, void* valor) {
 	if (pila->largo == pila->tam) {
+		void **datos_nuevo = pila->datos;
 		pila->datos = realloc(pila->datos, (pila->tam + TAMANO) * sizeof(void*));
-		if (pila->datos == NULL) {
+		if (!pila->datos)
 			return false;
-		}
+		pila->datos = datos_nuevo;
 		pila->tam += TAMANO;
 	}
 	*(pila->datos + pila->largo) = valor;
@@ -59,18 +56,19 @@ void* pila_ver_tope(const pila_t *pila) {
 	if (pila->largo == 0) {
 		return NULL;
 	}
-	return *(pila->datos + pila->largo - 1);
+	return pila->datos[pila->largo - 1];
 }
 
 void* pila_desapilar(pila_t *pila) {
 	void* elemento = pila_ver_tope(pila);
-	if (elemento != NULL) {
+	if (elemento) {
 		pila->largo -= 1;
 		if ((pila->tam - pila->largo == TAMANO) && (pila->largo > 0)) {
+			void **datos_nuevo = pila->datos;
 			pila->datos = realloc(pila->datos, (pila->tam - TAMANO) * sizeof(void*));
-			if (pila->datos == NULL) {
+			if (!pila->datos)
 				return NULL;
-			}
+			pila->datos = datos_nuevo;
 			pila->tam -= TAMANO;
 		}
 	}

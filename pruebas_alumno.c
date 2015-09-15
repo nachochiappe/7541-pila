@@ -2,24 +2,22 @@
 #include "testing.h"
 #include <stddef.h>
 
+#define MAX_VOLUMEN 1000
 
 /* ******************************************************************
  *                   PRUEBAS UNITARIAS ALUMNO
  * *****************************************************************/
 
 void prueba_pila_alumno() {
-    pila_t* ejemplo = NULL;
-	print_test("Puntero inicializado a NULL", ejemplo == NULL);
-	
-	// PRUEBA CREAR PILA
+    // PRUEBA CREAR PILA
 	pila_t* pila;
 	print_test("Prueba crear pila", (pila = pila_crear()));
 	
 	// PRUEBA TOPE PILA VACIA
-	print_test("Prueba tope de la pila vacia devuelve NULL", (pila_ver_tope(pila) == NULL));
+	print_test("Prueba tope de la pila vacia devuelve NULL", (!pila_ver_tope(pila)));
 	
 	// PRUEBA PILA_ESTA_VACIA EN PILA VACIA
-	print_test("Prueba pila debe estar vacia al inicializar", (pila_esta_vacia(pila) == true));
+	print_test("Prueba pila debe estar vacia al inicializar", (pila_esta_vacia(pila)));
 	
 	// PRUEBA VER_TOPE
 	// Genero elementos a apilar
@@ -38,7 +36,7 @@ void prueba_pila_alumno() {
 	print_test("Prueba apilar hasta TAMANO", (pila_ver_tope(pila) == p_e));
 	
 	// PRUEBA PILA_ESTA_VACIA EN PILA CON DATOS
-	print_test("Prueba pila NO debe estar vacia luego de apilar", (pila_esta_vacia(pila) == false));
+	print_test("Prueba pila NO debe estar vacia luego de apilar", (!pila_esta_vacia(pila)));
 	
 	// PRUEBA DESAPILAR ELEMENTO
 	void* elemento;
@@ -70,20 +68,27 @@ void prueba_pila_alumno() {
 	elemento = pila_desapilar(pila);
 	elemento = pila_desapilar(pila);
 	elemento = pila_desapilar(pila);
-	print_test("Prueba pila vacia luego de desapilar todos los elementos", (pila_esta_vacia(pila) == true));
+	print_test("Prueba pila vacia luego de desapilar todos los elementos", (pila_esta_vacia(pila)));
 	
 	// PRUEBA DESAPILAR PILA VACIA
-	print_test("Prueba desapilar pila vacia igual a NULL", (pila_desapilar(pila) == NULL));
+	print_test("Prueba desapilar pila vacia igual a NULL", (!pila_desapilar(pila)));
+	
+	// PRUEBA DE VOLUMEN
+	for (int i = 1; i <= MAX_VOLUMEN; i++) {
+		pila_apilar(pila, p_a);
+		pila_apilar(pila, p_b);
+		pila_apilar(pila, p_c);
+		pila_apilar(pila, p_d);
+		pila_apilar(pila, p_e);
+	}
+	print_test("Prueba de volumen", (pila_ver_tope(pila) == p_e));
+	
+	// PRUEBA DESAPILAR ELEMENTOS  DE LA PRUEBA DE VOLUMEN
+	for (int i = 1; i <= MAX_VOLUMEN * 5; i++) {	// 5 es porque apilo esa cantidad de elementos en cada ciclo de la PRUEBA DE VOLUMEN
+		elemento = pila_desapilar(pila);
+	}
+	print_test("Prueba desapilar luego de prueba volumen", (pila_esta_vacia(pila)));
 	
 	// PRUEBA DESTRUIR PILA
-	// Apilo los 7 elementos generados
-	pila_apilar(pila, p_a);
-	pila_apilar(pila, p_b);
-	pila_apilar(pila, p_c);
-	pila_apilar(pila, p_d);
-	pila_apilar(pila, p_e);
-	pila_apilar(pila, p_f);
-	pila_apilar(pila, p_g);
-	// Destruyo la pila
 	pila_destruir(pila);
 }
