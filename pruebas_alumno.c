@@ -82,8 +82,8 @@ void prueba_pila_memoria_dinamica() {
 	print_test("Prueba apilar &c", pila_apilar(pila, p_c));
 	print_test("Prueba apilar &d", pila_apilar(pila, p_d));
 	print_test("Prueba apilar &e", pila_apilar(pila, p_e));
-	print_test("Prueba apilar &e", pila_apilar(pila, p_f));
-	print_test("Prueba apilar &e", pila_apilar(pila, p_g));
+	print_test("Prueba apilar &f", pila_apilar(pila, p_f));
+	print_test("Prueba apilar &g", pila_apilar(pila, p_g));
 	print_test("Prueba ver tope igual a &g", pila_ver_tope(pila) == p_g);
 	
 	// Desapilo todos los elementos restantes hasta dejar la pila vacía
