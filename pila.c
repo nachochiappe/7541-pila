@@ -40,11 +40,12 @@ bool pila_esta_vacia(const pila_t *pila) {
 
 bool pila_apilar(pila_t *pila, void* valor) {
 	if (pila->largo == pila->tam) {
-		void **datos_nuevo = pila->datos;
+		void **datos_nuevo;
+		mempcpy(datos_nuevo, pila->datos, sizeof(pila->datos));
 		pila->datos = realloc(pila->datos, (pila->tam + TAMANO) * sizeof(void*));
 		if (!pila->datos)
 			return false;
-		pila->datos = datos_nuevo;
+		mempcpy(pila->datos, datos_nuevo, sizeof(datos_nuevo));
 		pila->tam += TAMANO;
 	}
 	*(pila->datos + pila->largo) = valor;
