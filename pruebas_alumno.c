@@ -132,3 +132,10 @@ void prueba_pila_volumen() {
 	pila_destruir(pila);
 	print_test("La pila fue destruida", true);
 }
+
+void prueba_pila_alumno() {
+	prueba_pila_vacia();
+	prueba_pila_con_elementos();
+	prueba_pila_memoria_dinamica();
+	prueba_pila_volumen();
+}
