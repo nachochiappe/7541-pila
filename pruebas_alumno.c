@@ -57,13 +57,6 @@ void prueba_pila_con_elementos() {
 	/* Destruyo la pila */
 	pila_destruir(pila);
 	print_test("La pila fue destruida", true);
-	
-	/* PRUEBA APILAR DESAPILAR NULL */
-	pila_t* pila2 = pila_crear();
-	print_test("Prueba apilar NULL", pila_apilar(pila2, NULL));
-	print_test("Pila no está vacía tras apilar NULL", !pila_esta_vacia(pila2));
-	print_test("Prueba desapilar NULL", pila_desapilar(pila2) == NULL);
-	print_test("Pila está vacía tras apilar/desapilar NULL", pila_esta_vacia(pila2));
 }
 
 void prueba_pila_memoria_dinamica() {
