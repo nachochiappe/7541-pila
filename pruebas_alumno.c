@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#define MAX_VOLUMEN 1000
+#define MAX_VOLUMEN 10000
 
 /* ******************************************************************
  *                   PRUEBAS UNITARIAS ALUMNO
