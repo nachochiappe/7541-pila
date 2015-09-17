@@ -61,7 +61,7 @@ void* pila_ver_tope(const pila_t *pila) {
 
 void* pila_desapilar(pila_t *pila) {
 	void* elemento = pila_ver_tope(pila);
-	if (elemento) {
+	if (elemento || pila->largo > 0) {	// Hago un OR en el caso de que se haya apilado un NULL
 		pila->largo -= 1;
 		if ((pila->largo > 0) && (pila->tam / pila->largo == MULTIPLICADOR)) {
 			void **aux = realloc(pila->datos, (pila->tam / MULTIPLICADOR) * sizeof(void*));
