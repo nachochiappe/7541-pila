@@ -59,8 +59,8 @@ void prueba_pila_con_elementos() {
 	print_test("La pila fue destruida", true);
 }
 
-void prueba_pila_memoria_dinamica() {
-	printf("\nINICIO DE PRUEBAS DE MEMORIA DINAMICA\n");
+void prueba_pila_redimension() {
+	printf("\nINICIO DE PRUEBAS DE REDIMENSION\n");
 	
 	/* Declaro las variables a utilizar*/
 	pila_t* pila = pila_crear();
@@ -136,6 +136,6 @@ void prueba_pila_volumen() {
 void prueba_pila_alumno() {
 	prueba_pila_vacia();
 	prueba_pila_con_elementos();
-	prueba_pila_memoria_dinamica();
+	prueba_pila_redimension();
 	prueba_pila_volumen();
 }
