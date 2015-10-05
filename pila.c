@@ -14,12 +14,12 @@ struct pila {
 // Redimensiona una pila, ya sea agrandándola o achicándola.
 // Pre: la pila está creada.
 // Post: la pila fue redimensionada, o permanece igual en caso de falle realloc.
-pila_t* redimensionar(pila_t *pila, size_t multiplo) {
-	void **aux = realloc(pila->datos, (pila->tam * multiplo) * sizeof(void*));
+bool redimensionar(pila_t *pila, size_t nuevo_tam) {
+	void **aux = realloc(pila->datos, nuevo_tam * sizeof(void*));
 	if (!aux) return NULL;
 	pila->datos = aux;
-	pila->tam = pila->tam * multiplo;
-	return pila;
+	pila->tam = nuevo_tam;
+	return true;
 }
 
 /* *****************************************************************
@@ -31,10 +31,10 @@ pila_t* pila_crear() {
 	if (!pila) return NULL;
 	pila->datos = malloc(TAM_INICIAL * sizeof(void*));
 	if (!pila->datos) {
-        free(pila);
-        return NULL;
-    }
-    pila->tam = TAM_INICIAL;
+		free(pila);
+		return NULL;
+	}
+	pila->tam = TAM_INICIAL;
 	pila->largo = 0;
     return pila;
 }
@@ -50,8 +50,7 @@ bool pila_esta_vacia(const pila_t *pila) {
 
 bool pila_apilar(pila_t *pila, void* valor) {
 	if (pila->largo == pila->tam) {
-		pila = redimensionar(pila, MULTIPLICADOR);
-		if (!pila) return false;
+		if (!redimensionar(pila, pila->tam * MULTIPLICADOR)) return false;
 	}
 	*(pila->datos + pila->largo) = valor;
 	pila->largo += 1;
@@ -67,7 +66,7 @@ void* pila_desapilar(pila_t *pila) {
 	void* elemento = pila_ver_tope(pila);
 	if (!pila_esta_vacia(pila)) {
 		pila->largo -= 1;
-		if ((pila->largo > 0) && (pila->tam / pila->largo == MULTIPLICADOR)) pila = redimensionar(pila, 1 / MULTIPLICADOR);
+		if ((pila->largo > 0) && (pila->largo < pila->tam / MULTIPLICADOR)) redimensionar(pila, pila->tam / MULTIPLICADOR);
 	}
 	return elemento;
 }
